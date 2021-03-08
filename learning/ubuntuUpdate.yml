@@ -6,7 +6,11 @@
   remote_user: matthew
   become: yes
 
-  tasks: 
+  tasks:
+  - name: Updating OS
+    apt:
+      upgrade: yes
+      update_cache: yes
   - name: ensure python is up to date
     apt: 
       name: python
