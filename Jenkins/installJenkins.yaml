@@ -1,8 +1,7 @@
 ---
-- hosts: "$hostname"
+- hosts: pi
   become: yes
-  remote_user: username
-  become_user: username
+  remote_user: matthew
   tasks:
     - name: install dependencies
       yum:
@@ -11,7 +10,7 @@
       vars:
         package:
         - wget
-        - java-1.8.0-openjdk-devel
+        - defautl-jre
         - git
       
     - name: download jenkins.repo
@@ -25,12 +24,12 @@
         key: https://jenkins-ci.org/redhat/jenkins-ci.org.key
 
     - name: install Jenkins
-       yum:
+      yum:
         name: jenkins
         state: present
 
     - name: Start Jenkins
-     service:
+      service:
         name: jenkins
         state: started
         enabled: yes
