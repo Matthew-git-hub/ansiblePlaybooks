@@ -14,21 +14,16 @@
         - java-1.8.0-openjdk-devel
         - git
       
-    - name: clone repo
-      git:
-        repo: https://github.com/linuxacademy/content-terraform-jenkins.git
-        dest: /tmp/jenkins
+- name: download jenkins.repo
+  get_url:
+    url: http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo
+    dest: /etc/yum.repos.d/jenkins.repo
 
-    - name: Setup Jenkins Repo
-      get_url:
-        url: https://pkg.jenkins.io/redhat/jenkins.repo
-        dest: /etc/yum.repos.d/jenkins.repo
-    
-    - name: Import Jenkins Repo GPG key
-      rpm_key:
-        state: present
-        key: https://pkg.jenkins.io/redhat/jenkins.io.key
- 
+- name: import jenkins key
+  rpm_key:
+    state: present
+    key: https://jenkins-ci.org/redhat/jenkins-ci.org.key
+
     - name: install Jenkins
       yum:
         name: jenkins
